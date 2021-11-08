@@ -1,0 +1,52 @@
+<h1>form</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-3">
+            <label for="name">Name:</label>
+            <input type="text" id="name" class="form-control" formControlName="name">
+            <div *ngIf="form.controls['name'].touched &&  form.controls['name'].invalid " class="alert alert-danger">
+                * Enter your Name:
+            </div>
+        </div>
+
+        <div class="col-3">
+            <label for="age">Age:</label>
+            <input type="number" class="form-control" formControlName="age">
+            <div  *ngIf="age.errors?.Age">
+        *Age more then 18:{{form.controls|json}}
+            </div>
+
+        </div>
+        <div class="col-3">
+            <label for=" email">Email:</label>
+            <input type=" type" id=" email" class="form-control" formControlName="email">
+        </div>
+
+        <div class="col-3">
+            <button type="submit" class="btn btn-success mt-4 ">{{editIndex?'UpdateUser':'AddUser'}}</button>
+        </div>
+    </div>
+    <!-- <span *ngIf="form.$errors.required" class="alert alert-danger">Fill the form</span> -->
+</form>
+<table class="table mt-5">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">No:</th>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of list; let i =index">
+            <th scope="row">{{i + 1}}</th>
+            <th><span>{{user?.name}}</span></th>
+            <th><span>{{user?.age}}</span></th>
+            <th><span>{{user?.email}}</span></th>
+            <th> <button type="button" class="btn btn-danger " (click)="delete(i)">delete</button>|<button type="button"
+                    class="btn btn-primary" (click)="editList(i,user)">Edit</button>
+            </th>
+        </tr>
+    </tbody>
+</table>
